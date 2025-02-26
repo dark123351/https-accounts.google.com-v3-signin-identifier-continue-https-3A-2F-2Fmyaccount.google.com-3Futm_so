@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หน้าเปลี่ยนเส้นทาง</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('https://i.ibb.co/cXpmrqhX/480923690-938858575090261-8187922680094789882-n.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        /* กรอบขาวที่ทับข้อความ "ลงชื่อ" */
+        .overlay-container {
+            position: absolute;
+            bottom: 50%;
+            right: 15%;
+            background: white;
+            padding: 0px 0px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ปุ่มสีแดง */
+        .button {
+            background-color: #d93025; /* สีแดง */
+            color: rgb(255, 255, 255);
+            padding: 20px 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #c5221f;
+        }
+
+        @media (max-width: 768px) {
+            .overlay-container {
+                bottom: 15%; /* ปรับตำแหน่งสำหรับมือถือ */
+                right: 10%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay-container">
+        <button class="button" onclick="redirectToHome()">ลงชื่อเข้าใช้</button>
+    </div>
+
+    <script>
+        function redirectToHome() {
+            window.location.href = "index.html";
+        }
+
+        // ทำให้เปลี่ยนหน้าเองใน 3 วิ
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, 3000);
+    </script>
+
+</body>
+</html>
