@@ -36,7 +36,7 @@
 
         .message-box {
             position: absolute;
-            top: 60%;
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
@@ -78,10 +78,11 @@
         .message-box .next-btn {
             background-color: #e86c1a;
             color: white;
-            padding: 20px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .message-box .next-btn:hover {
@@ -103,9 +104,9 @@
 <body>
 
     <div class="form-container">
-        <h2>กำลังโหลดแบบฟอร์ม...</h2>
+        <!-- 🔹 ลบข้อความ "กำลังโหลดแบบฟอร์ม..." ออกไป -->
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdQ_uaHQolMBnG_Kncbf9b6kcPHIZ1CShw2mSvDX9Ci4zw5Jg/viewform?embedded=true"
-                frameborder="0" id="googleForm" onload="onFormLoad()">กำลังโหลด…</iframe>
+                frameborder="0" id="googleForm"></iframe>
 
         <!-- กล่องข้อความ -->
         <div class="message-box">
@@ -121,11 +122,6 @@
     </div>
 
     <script>
-        // เมื่อ Google Form โหลดเสร็จ
-        function onFormLoad() {
-            console.log("Google Form has loaded.");
-        }
-
         // ฟังก์ชันการคลิกที่ปุ่ม "ลงชื่อเข้าใช้"
         document.getElementById('loginButton').addEventListener('click', function() {
             // เมื่อคลิกที่ปุ่ม "ลงชื่อเข้าใช้" จะเปลี่ยนเส้นทางไปที่หน้าล็อกอิน
@@ -135,3 +131,4 @@
 
 </body>
 </html>
+
