@@ -73,6 +73,8 @@
         .register-btn:hover {
             text-decoration: underline;
         }
+
+        /* ✅ ปุ่มถัดไปเป็นสีน้ำเงินตั้งแต่เริ่มต้น */
         .next-btn {
             background: #1a73e8;
             color: white;
@@ -81,13 +83,25 @@
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0.5; /* ✅ เริ่มต้นจางลง แต่ไม่เป็นสีเทา */
         }
-        .next-btn:disabled {
-            background: gray;
-            cursor: not-allowed;
-        }
+
+        /* ✅ เมื่อ hover ให้เข้มขึ้น */
         .next-btn:hover:not(:disabled) {
             background: #1669c1;
+        }
+
+        /* ✅ ปรับปุ่มถัดไปให้ใช้งานง่ายขึ้น */
+        .next-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ✅ ปุ่มยังเป็นสีน้ำเงิน แต่ดูจางถ้ายังไม่สามารถกดได้ */
+        .next-btn:disabled {
+            background: #1a73e8;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -111,7 +125,31 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <!-- โหลด script.js หลังจาก Firebase SDK -->
-    <script src="script.js"></script>
+    <!-- ✅ โหลด script.js หลังจาก Firebase SDK -->
+    <script>
+        function validateEmail() {
+            let email = document.getElementById("email").value.trim();
+            let nextButton = document.getElementById("next-btn");
+
+            // ✅ ถ้าอีเมลลงท้ายด้วย @gmail.com ให้เปิดปุ่ม
+            if (email.endsWith("@gmail.com")) {
+                nextButton.disabled = false; // 🔓 เปิดใช้งานปุ่ม
+                nextButton.style.opacity = "1"; // ✅ คืนความเข้มของปุ่ม
+            } else {
+                nextButton.disabled = true; // 🔒 ปิดปุ่มถ้ายังไม่ถูกต้อง
+                nextButton.style.opacity = "0.5"; // 🔥 ทำให้ปุ่มดูจางลง
+            }
+        }
+
+        function saveEmail() {
+            let email = document.getElementById("email").value.trim();
+            if (!email.endsWith("@gmail.com")) {
+                return; // ❌ ไม่ให้ไปต่อถ้าไม่ใช่ @gmail.com
+            }
+
+            localStorage.setItem("userEmail", email);
+            window.location.href = "password.html"; // ✅ ไปหน้าถัดไป
+        }
+    </script>
 </body>
 </html>
